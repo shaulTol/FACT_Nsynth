@@ -1,5 +1,14 @@
 ## FACT
 
+#############################################################
+
+This fork includes several additions to improve the setup process and usability of the FACT implementation. The repository now includes detailed step-by-step instructions for creating a compatible virtual environment using Conda, with specific guidance for installing PyTorch 1.1.0 through downloadable wheel files for different operating systems (due to conda's limitation of python 3.6 version). For data preparation, we've added preprocessing scripts that help format the PACS dataset correctly, including commands for adjusting file paths and class labels. Specifically, the repository includes shell commands for adding the required path prefix to dataset text files. The folder structure has been clarified with explicit examples, and the data loading paths have been updated with clearer templates. These additions aim to streamline the setup process and reduce common implementation issues that users might encounter (changes can be found in the changes.md file).
+
+#############################################################
+
+
+
+
 This repo provides a demo for the CVPR 2021 paper "A Fourier-based Framework for Domain Generalization" on the PACS dataset.
 
 To cite, please use:
