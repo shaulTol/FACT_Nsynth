@@ -15,10 +15,10 @@ source = ["photo", "cartoon", "art_painting", "sketch"]
 target = args.domain
 source.remove(target)
 
-input_dir = 'path/to/data'
-output_dir = 'path/to/output'
+input_dir = '/Users/yaronot/FACT/data/datalists'
+output_dir = '/Users/yaronot/FACT/train_logs'
 
-config = "PACS/ResNet50"
+config = "PACS/ResNet18"
 
 domain_name = target
 path = os.path.join(output_dir, config.replace("/", "_"), domain_name)

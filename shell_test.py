@@ -19,7 +19,7 @@ input_dir = 'path/to/data'
 output_dir = 'path/to/output'
 ckpt_path = f'./ckpt/{target}/best_model.tar'
 
-config = "PACS/ResNet50"
+config = "PACS/ResNet18"
 
 domain_name = target
 path = os.path.join(output_dir, config.replace("/", "_"), domain_name)

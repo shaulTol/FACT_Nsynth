@@ -1,0 +1,50 @@
+{
+    "batch_size": 16,
+    "epoch": 50,
+    "num_classes": 7,
+    "teacher_momentum": 0.9995,
+    "lam_const": 2.0,
+    "warmup_epoch": 5,
+    "warmup_type": "sigmoid",
+    "T": 10.0,
+    "data_opt": {
+        "image_size": 224,
+        "use_crop": true,
+        "jitter": 0.4,
+        "from_domain": "all",
+        "alpha": 1.0
+    },
+    "networks": {
+        "encoder": {
+            "name": "resnet50"
+        },
+        "classifier": {
+            "name": "base",
+            "in_dim": 2048,
+            "num_classes": 7,
+            "cls_type": "linear"
+        }
+    },
+    "optimizer": {
+        "encoder_optimizer": {
+            "optim_type": "sgd",
+            "lr": 0.001,
+            "momentum": 0.9,
+            "weight_decay": 0.0005,
+            "nesterov": true,
+            "sched_type": "step",
+            "lr_decay_step": 40,
+            "lr_decay_rate": 0.1
+        },
+        "classifier_optimizer": {
+            "optim_type": "sgd",
+            "lr": 0.001,
+            "momentum": 0.9,
+            "weight_decay": 0.0005,
+            "nesterov": true,
+            "sched_type": "step",
+            "lr_decay_step": 40,
+            "lr_decay_rate": 0.1
+        }
+    }
+}
