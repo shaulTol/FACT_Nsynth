@@ -15,8 +15,13 @@ source = ["photo", "cartoon", "art_painting", "sketch"]
 target = args.domain
 source.remove(target)
 
-input_dir = '/Users/yaronot/FACT/data/datalists'
-output_dir = '/Users/yaronot/FACT/train_logs'
+##yaron's paths
+#input_dir = '/Users/yaronot/FACT/data/datalists'
+#output_dir = '/Users/yaronot/FACT/train_logs'
+
+##my paths
+input_dir = '/mnt/c/Users/stolk/OneDrive/github/FACT/AFourier-based-Framework-for-Domain-Generalization/data/datalists'
+output_dir = '/mnt/c/Users/stolk/OneDrive/github/FACT/AFourier-based-Framework-for-Domain-Generalization/train_logs'
 
 config = "PACS/ResNet18"
 
