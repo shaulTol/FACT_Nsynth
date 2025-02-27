@@ -2,7 +2,18 @@ import os
 import torch
 from torch import nn
 from torch.utils import model_zoo
-from torchvision.models.resnet import BasicBlock, model_urls, Bottleneck
+
+# Define model_urls manually since it's no longer part of the public API
+model_urls = {
+    'resnet18': 'https://download.pytorch.org/models/resnet18-5c106cde.pth',
+    'resnet34': 'https://download.pytorch.org/models/resnet34-333f7ec4.pth',
+    'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
+    'resnet101': 'https://download.pytorch.org/models/resnet101-5d3b4d8f.pth',
+    'resnet152': 'https://download.pytorch.org/models/resnet152-b121ed2d.pth',
+}
+
+# Import BasicBlock and Bottleneck directly
+from torchvision.models.resnet import BasicBlock, Bottleneck
 
 
 class ResNet(nn.Module):
@@ -63,33 +74,79 @@ class ResNet(nn.Module):
 def resnet18(pretrained=True, **kwargs):
     model = ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['resnet18']), strict=False)
+        try:
+            # First, try loading using the model_zoo approach
+            model.load_state_dict(model_zoo.load_url(model_urls['resnet18']), strict=False)
+        except Exception as e:
+            print(f"Warning: Original loading method failed: {e}")
+            print("Trying alternative loading method...")
+
+            # Alternative method using torchvision
+            import torchvision.models as models
+            pretrained_model = models.resnet18(weights="IMAGENET1K_V1")
+
+            # Extract the features part (remove the final FC layer)
+            pretrained_dict = {k: v for k, v in pretrained_model.state_dict().items()
+                              if not k.startswith('fc.')}
+
+            # Load the weights
+            model.load_state_dict(pretrained_dict, strict=False)
+            print("Successfully loaded ResNet18 weights using alternative method")
+
     return model
 
 
 def resnet34(pretrained=True, **kwargs):
     model = ResNet(BasicBlock, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['resnet34']))
+        try:
+            model.load_state_dict(model_zoo.load_url(model_urls['resnet34']), strict=False)
+        except Exception as e:
+            import torchvision.models as models
+            pretrained_model = models.resnet34(weights="IMAGENET1K_V1")
+            pretrained_dict = {k: v for k, v in pretrained_model.state_dict().items()
+                              if not k.startswith('fc.')}
+            model.load_state_dict(pretrained_dict, strict=False)
     return model
 
 
 def resnet50(pretrained=True, **kwargs):
     model = ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['resnet50']), strict=False)
+        try:
+            model.load_state_dict(model_zoo.load_url(model_urls['resnet50']), strict=False)
+        except Exception as e:
+            import torchvision.models as models
+            pretrained_model = models.resnet50(weights="IMAGENET1K_V1")
+            pretrained_dict = {k: v for k, v in pretrained_model.state_dict().items()
+                              if not k.startswith('fc.')}
+            model.load_state_dict(pretrained_dict, strict=False)
     return model
 
 
 def resnet101(pretrained=True, **kwargs):
     model = ResNet(Bottleneck, [3, 4, 23, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['resnet101']))
+        try:
+            model.load_state_dict(model_zoo.load_url(model_urls['resnet101']), strict=False)
+        except Exception as e:
+            import torchvision.models as models
+            pretrained_model = models.resnet101(weights="IMAGENET1K_V1")
+            pretrained_dict = {k: v for k, v in pretrained_model.state_dict().items()
+                              if not k.startswith('fc.')}
+            model.load_state_dict(pretrained_dict, strict=False)
     return model
 
 
 def resnet152(pretrained=True, **kwargs):
     model = ResNet(Bottleneck, [3, 8, 36, 3], **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['resnet152']))
+        try:
+            model.load_state_dict(model_zoo.load_url(model_urls['resnet152']), strict=False)
+        except Exception as e:
+            import torchvision.models as models
+            pretrained_model = models.resnet152(weights="IMAGENET1K_V1")
+            pretrained_dict = {k: v for k, v in pretrained_model.state_dict().items()
+                              if not k.startswith('fc.')}
+            model.load_state_dict(pretrained_dict, strict=False)
     return model
