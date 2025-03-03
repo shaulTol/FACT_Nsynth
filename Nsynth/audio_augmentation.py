@@ -25,10 +25,10 @@ class AudioFourierAugmentation:
             # Apply FFT
             fft = np.fft.fft(coef)
 
-            # Modify amplitude
-            if self.amplitude > 0:
-                magnitude = np.abs(fft)
-                phase = np.angle(fft)
+            # Modify amplitude - keeping this option available for future use but not in this case
+            #if self.amplitude > 0:
+                #magnitude = np.abs(fft)
+                #phase = np.angle(fft)
 
                 # Random amplitude perturbation
                 amplitude_factor = 1.0 + np.random.uniform(-self.amplitude, self.amplitude)
